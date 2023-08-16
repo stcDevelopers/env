@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block content %}
+    <h1>Contact us</h1>
+    <p>{% csrf_token%}</p>
+    <form action="." method="POST">
+      <table>
+        {{ form.as_table }}
+      </table>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+{% endblock %}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Iniciar Sesión | ITAL-LENT SAC</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="static/boots/plugins/fontawesome-free/css/all.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- icheck bootstrap -->
+        <link rel="stylesheet" href="static/boots/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="static/boots/dist/css/adminlte.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <style>
+           .login-page {
+              background: url('static/imgs/fondo_login.jpg') no-repeat center center fixed;
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              background-size: cover;
+              -o-background-size: cover;
+           }
+        </style>
+
+    </head>
+    <!--<body class="hold-transition login-page">-->
+    <body>
+      <!--
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-11"> </div>
+          <div class="col-1">
+      -->
+          <div class="hold-transition login-page">
+              <div class="login-box">
+                 <div class="login-logo">
+                     <img src="static/imgs/Logo2.png">
+                  </div>
+                  <div class="card">
+                    <div class="card-body login-card-body">
+                      {% for product in products %}
+                      <p> {{product.cod_produc}} </p> 
+                      <p> {{product.name_produc}} </p>
+                      {% endfor  %}
+
+                      <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
+                        <!--
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss = "alert" aria-label = "Close">
+                            <span aria-hidden = "true">&times;</span>
+                          </button>
+                          <strong>Error: </strong> Correo electrónico o contraseña no válidos. Inténtalo de nuevo!
+                        </div>
+                        -->
+                      <form action="verifica_usu" method="post" name="form" onSubmit="return verifica_clave(form)">
+                        <div class="input-group mb-3">
+                          <input type="text" name="usuario" class="form-control" onChange="verifica_usu(form);" placeholder="Usuario" data-validate="lleno:Indique un usuario">
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-envelope"></span>
+                            </div>
+                          </div>
+                          <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <input type="password" name="password" class="form-control" placeholder="Contraseña" data-validate="lleno:Indique una contraseña">
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-lock"></span>
+                            </div>
+                          </div>
+                          <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <!--<div class="icheck-primary">
+                              <input type="checkbox" id="remember">
+                              <label for="remember">
+                                Remember Me
+                              </label>
+                            </div>-->
+                          </div>
+                          <!-- /.col -->
+                          <div class="col-6">
+                            <button type="button" id="loginButton" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <input type="hidden" id="passbd">
+                      </form>
+                    </div>
+                    <!-- /.login-card-body -->
+                  </div>
+                </div>
+                  <!-- /.login-box -->
+           </div>
+       <!--
+          </div>
+       </div>
+       -->
+
+
+        <!-- jQuery -->
+        <script src="static/boots/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="static/boots/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="static/boots/dist/js/adminlte.js"></script>
+        <!-- ValidateJS -->
+        <script src="static/boots/plugins/validate/validate.js?v=1.0"></script>
+        <!-- Custom Scripts -->
+        <script src="static/boots/js/auth/auth.js?v=1.0"></script>
+    </body>
+
+<script>
+         function verifica_usu(form){
+             var usuario  = document.form.usuario.value;
+             var xmlhttp = new XMLHttpRequest();
+             var link = "verifica_usu?usuario="+usuario;
+             xmlhttp.open("GET", link, true);
+             xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                   var a = xmlhttp.responseText;
+                   if (a == "conexion0"){
+                      dhtmlx.alert({title:"Importante!", type:"alert-error", text:"No Hay Conexion con el Servidor!!!" });
+                      return false;
+                   }
+                   if (a == "usuario0"){
+                      dhtmlx.alert({title:"Importante!", type:"alert-error", text:"Usuario No Registrado!!!" });
+                      form.usuario.value = "";
+                      form.usuario.focus();
+                      return false;
+                   }
+                   var elem = a.split("|");
+                   var usu = elem[0];
+                   var pwd = elem[1];
+                   document.form.passbd.value = pwd;
+                   return true;
+                }
+             }
+             xmlhttp.send(null);
+         };
+
+         function verifica_clave() {
+            var passed = true;
+            var clav1= document.form.password.value;
+            var clav2= document.form.passbd.value;
+            if (clav1 != clav2){
+               form.password.value="";
+               dhtmlx.alert({title:"Importante!", type:"alert-error", text:"Contraseña Incorrecta!!" });
+               form.password.focus();
+               passed = false;
+            }
+            return passed;
+         };
+
+
+
+</script>
+</html>

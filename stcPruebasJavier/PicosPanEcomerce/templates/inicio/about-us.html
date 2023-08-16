@@ -1,0 +1,37 @@
+{% extends 'layouts/control-panel.html' %}
+{% load staticfiles %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{% static 'css/inicio/about-us.css' %}">
+
+{% endblock %}
+{% block navbar %}
+<div class="section">
+  <div class="container">
+    <div class="content-section">
+      <div class="title">
+        <h1>Acerca de Nosotros</h1>
+      </div>
+      <div class="content">
+        <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+           Ut enim ad minim veniam
+        </p>
+        <div class="button">
+          <a href="#">Read More</a>
+        </div>
+        <div class="social">
+          <a href=""><i class="fab fa-facebook-f"></i></a>
+          <a href=""><i class="fab fa-twitter"></i></a>
+          <a href=""><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="image-section">
+      <img src="{% static 'img/about-us.jpg' %}" alt="">
+    </div>
+  </div>
+</div>
+
+{% endblock %}

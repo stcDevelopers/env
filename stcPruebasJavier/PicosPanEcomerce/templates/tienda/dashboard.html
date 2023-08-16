@@ -1,0 +1,188 @@
+{% load staticfiles %}
+
+<!-- Graph Highchart -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+  <!-- Flag sprites service provided by Martijn Lafeber,
+      https://github.com/lafeber/world-flags-sprite/blob/master/LICENSE -->
+  <link rel="stylesheet" href="https://github.com/downloads/lafeber/world-flags-sprite/flags16.css" />
+
+<!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<!-- DashBoard Header -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar_light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="{% static 'img/logo.jfif' %}" alt=""></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar_auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Links</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appearcence</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Settings</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar_nav">
+          <li class="nav-item">
+            <a class="nav-link" href="http://200.91.220.8:8093/inventario">Your linkWeb : <span>https://http://200.91.220.8:8093/inventario</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav_btn" href="#">Share</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- DashBoard Header -->
+ <!-- DashBoard Sidebar -->
+<aside class="sidebar">
+  <img src="{% static 'img/logo.jfif' %}" alt="">
+  <ul class="sidebar-icon">
+    <li><em class="fa fa-th-large"></em></li>
+    <li>
+      <em class="fa fa-user-o">
+      </em>
+    </li>
+    <li>
+      <em class="fa fa-suitcase">
+      </em>
+    </li>
+    <li>
+      <em class="fa fa-cog">
+      </em>
+    </li>
+  </ul>
+  <ul class="botton_sidebar_icon">
+    <li>
+      <em class="fa fa-bell"></em><span class="badge">2</span>
+    </li>
+    <li>
+      <img src="{% static 'img/logo.jfif' %}" alt="">
+    </li>
+  </ul>
+</aside>
+ <!-- DashBoard Sidebar -->
+  <!-- Graph Area HTML -->
+<div class="graph_area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="user-name">
+          <h2>Welcome, <strong>{{user.username | upper}}</strong></h2>
+
+        </div>
+
+      </div>
+      <div class="col-lg-3 offset-lg-5">
+        <div class="add-link">
+          <button class="btn btn-secondary btn-block">Add a New Link</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="value_cards_sec">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="value_cards card_1">
+            <p>Links Geenrated</p>
+            <h3>45</h3>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="value_cards card_2">
+            <p>Total Earnings</p>
+            <h3>$2540</h3>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="value_cards card_3">
+            <p>Sales Today</p>
+            <h3>14</h3>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="value_cards card_4">
+            <p>Categories</p>
+            <h3>31</h3>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="graph_sec">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="graph_sec_2">
+            <p>Sales progress</p>
+            <figure class="highcharts-figure">
+                <div id="container"></div>
+                <p class="highcharts-description">
+                    A polar bar chart is similar to a bar chart, but the y-axis is circular.
+                    In this demo we see the total Winter Olympics medals earned for the top 10
+                    countries.
+                </p>
+            </figure>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="graph_sec_2 ">
+            <p>Year Wise Sales</p>
+            <figure class="highcharts-figure">
+              <div id="container2"></div>
+              <p class="highcharts-description">
+                  This demo shows a smoothed area chart with an x-axis plot band
+                  highlighting an area of interest at the last two points. Plot bands
+                  and plot lines are commonly used to draw attention to certain areas or
+                  thresholds.
+              </p>
+            </figure>
+
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="graph_sec_2 ">
+            <p>Total Earnings </p>
+            <figure class="highcharts-figure">
+              <div id="container3"></div>
+              <p class="highcharts-description">
+                  Chart showing stacked columns for comparing quantities. Stacked charts are often used to visualize data that accumulates to a sum. This chart is showing data labels for each individual section of the stack.
+              </p>
+            </figure>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="copyright_text">
+        <p>All rights reserved. Copyright © 2020, LinkWeb </p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+  <!-- Graph Area HTML -->
+
+  <script src="{% static 'js/dashboard.js' %}"></script>

@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{% block title %} Picos Pan {% endblock %}</title>
+
+  <!-- csrf-token -->
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+  <!-- Los iconos tipo Solid de Fontawesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+   <!-- login -->
+
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+  {% block extra_styles %}
+
+
+  {% endblock %}
+
+</head>
+
+<body>
+  {% block navbar %}
+  {% endblock %}
+  <script>
+    var domainUrl = document.location.protocol + '//' + document.domain + ':' + document.location.port
+    var route = domainUrl + '{% url "auth:login" %}'
+    var staticRoute = domainUrl + '{% static "/" %}'
+  </script>
+
+
+  <!-- jQuery -->
+  <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+   <!-- Font Awesome -->
+   <!-- Los iconos tipo Solid de Fontawesome-->
+   <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+
+  <script type="text/javascript" src="{% static 'js/apps.js'%}"></script>
+
+  {% block js_extra %} {% endblock %}
+
+</body>
+
+</html>
